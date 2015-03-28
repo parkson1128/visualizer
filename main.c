@@ -204,22 +204,22 @@ void newtask01(void *pvParameters)
 {
 		
 	send_byte('1');
-        send_byte('1');
-        send_byte('1');
-        send_byte('1');
-        send_byte('\n');
-        send_byte('\r');	
+	send_byte('1');
+	send_byte('1');
+	send_byte('1');
+	send_byte('\n');
+	send_byte('\r');	
 	while(1);
 }
 void newtask02(void *pvParameters)
 {
 	
 	send_byte('2');
-        send_byte('2');
-        send_byte('2');
-        send_byte('2');
-        send_byte('\n');
-        send_byte('\r');
+	send_byte('2');
+	send_byte('2');
+	send_byte('2');
+	send_byte('\n');
+	send_byte('\r');
 	while(1);
 	
 }

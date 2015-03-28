@@ -13,6 +13,8 @@ TRACE_INTERRUPT = False
 log = open('log', 'r')
 lines = log.readlines()
 
+switchtime = open('switchtime', 'w')
+
 tasks = {}
 events = []
 mutexes = {}
@@ -55,7 +57,8 @@ for line in lines :
 		events.append(event);
 
 		last_task = in_task
-
+		switchtime.write('switch from %s to %s cost %f milliseconds\n' % (out_task, in_task,in_time-out_time))
+		
 	elif inst == 'mutex' and TRACE_MUTEX :
 		task, id = args.split(' ')
 		mutex = {}
@@ -163,6 +166,7 @@ for line in lines :
 			events.append(event)
 			tasks[int_num]['created'] = True if dir == 'in' else False
 
+
 log.close()
 
 grasp = open('sched.grasp', 'w')
@@ -247,3 +251,5 @@ for id in tasks :
 					(events[-1]['time'], id))
 
 grasp.close()
+
+switchtime.close()
