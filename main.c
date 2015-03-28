@@ -200,6 +200,30 @@ void serial_readwrite_task(void *pvParameters)
 		                         portMAX_DELAY));
 	}
 }
+void newtask01(void *pvParameters)
+{
+		
+	send_byte('1');
+        send_byte('1');
+        send_byte('1');
+        send_byte('1');
+        send_byte('\n');
+        send_byte('\r');	
+	while(1);
+}
+void newtask02(void *pvParameters)
+{
+	
+	send_byte('2');
+        send_byte('2');
+        send_byte('2');
+        send_byte('2');
+        send_byte('\n');
+        send_byte('\r');
+	while(1);
+	
+}
+
 
 int main()
 {
@@ -219,6 +243,20 @@ int main()
 	serial_str_queue = xQueueCreate(10, sizeof(serial_str_msg));
 	vSemaphoreCreateBinary(serial_tx_wait_sem);
 	serial_rx_queue = xQueueCreate(1, sizeof(serial_ch_msg));
+	
+
+	
+	/* Create a newtask01 */
+        xTaskCreate(newtask01,
+                    (signed portCHAR *) "newtask01",
+                    512 /* stack size */, NULL,
+                    tskIDLE_PRIORITY + 1, NULL);
+
+	/* Create a newtask02 */
+	xTaskCreate(newtask02,
+                    (signed portCHAR *) "newtask02",
+                    512 /* stack size */, NULL,
+                    tskIDLE_PRIORITY + 1, NULL);
 
 	/* Create a task to flash the LED. */
 	xTaskCreate(led_flash_task,
